@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:admins', ['except' => ['login']]);
     }
 
     /**
@@ -26,7 +27,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (!$token = auth('api')->attempt($credentials)) {
+        if (!$token = auth('admins')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -77,7 +78,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
+            'expires_in' => auth('admins')->factory()->getTTL() * 60
         ]);
     }
 }

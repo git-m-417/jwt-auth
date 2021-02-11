@@ -27,3 +27,14 @@ Route::group([
     Route::post('refresh', [\App\Http\Controllers\AuthController::class, 'refresh']);
     Route::post('me', [\App\Http\Controllers\AuthController::class, 'me']);
 });
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'admin'
+], function ($router) {
+    Route::post('login', [\App\Http\Controllers\Admin\AuthController::class, 'login']);
+    Route::post('logout', [\App\Http\Controllers\Admin\AuthController::class, 'logout']);
+    Route::post('refresh', [\App\Http\Controllers\Admin\AuthController::class, 'refresh']);
+    Route::post('me', [\App\Http\Controllers\Admin\AuthController::class, 'me']);
+});
