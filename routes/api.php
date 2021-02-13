@@ -38,3 +38,7 @@ Route::group([
     Route::post('refresh', [\App\Http\Controllers\Admin\AuthController::class, 'refresh']);
     Route::post('me', [\App\Http\Controllers\Admin\AuthController::class, 'me']);
 });
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::resource('products', \App\Http\Controllers\ProductController::class);
+});
